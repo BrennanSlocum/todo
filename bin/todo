@@ -17,7 +17,7 @@ ERROR="${RED}[ERROR]${NC}"
 
 usage() {
     printf "%b\n" "
-${BOLD}todo${NC} [-l]
+${BOLD}todo${NC} [-h|-v|(-r -d <index> -e <index> <newitem> -a <item> -c <col>)]
     a personal todo list tool
 
 ${BOLD}usage${NC}
@@ -27,7 +27,7 @@ ${BOLD}usage${NC}
     --delete    -d  <index|a-b>         remove from todo list
     --edit      -e  <index> <newitem>   edit existing item
     --reset     -r                      clear todo
-    --color     -c  <color>             pair with add; main 6 colors except orange
+    --color     -c  <color>             pair with add; \\033[0;<31-36>m
 "
 }
 
@@ -107,9 +107,9 @@ del=()
 while (($#)); do
     case "$1" in
         -h|--help)
-            usage;;
+            usage && exit 0;;
         -v|--version)
-            ver;;
+            ver && exit 0;;
         -a|--add)
             shift
             while (($#)) && [[ $1 != -* ]]; do add+=("$1")
